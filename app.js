@@ -127,10 +127,13 @@ bot.dialog('option4', [
 // Successful Launches
 bot.dialog('option5', [
     function (session) {
-        filters = {};
+        filters = {
+            launch_success: true
+        };
 
         SpaceX.getAllLaunches(filters, function (err, info) {
-            console.log(info);
+            session.send(successfulLaunches.cardBuilder(session, info));
+            session.endDialog();
         });
     }
 ]);
