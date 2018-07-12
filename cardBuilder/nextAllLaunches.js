@@ -1,7 +1,5 @@
 const builder = require('botbuilder');
 
-filters = {};
-
 module.exports = {
     cardBuilder: (session, data) => {
         var bodyObject = [];

@@ -65,6 +65,7 @@ bot.dialog('menu', [
 // About company
 bot.dialog('option1', [
     function (session) {
+        filters = {};
 
         SpaceX.getCompanyInfo(function (err, info) {
             let Info = {
@@ -84,6 +85,8 @@ bot.dialog('option1', [
 // Next launch
 bot.dialog('option2', [
     function (session) {
+        filters = {};
+
         SpaceX.getAllUpcomingLaunches(filters, function (err, info) {
             const Info = info[0]
 
@@ -102,6 +105,8 @@ bot.dialog('option2', [
 // Previous launch
 bot.dialog('option3', [
     function (session) {
+        filters = {};
+
         SpaceX.getLatestLaunch(filters, function (err, info) {
             console.log(info);
         });
@@ -111,6 +116,8 @@ bot.dialog('option3', [
 // Next all launches
 bot.dialog('option4', [
     function (session) {
+        filters = {};
+
         SpaceX.getAllUpcomingLaunches(filters, function (err, info) {
             console.log(info);
         });
@@ -120,6 +127,8 @@ bot.dialog('option4', [
 // Successful Launches
 bot.dialog('option5', [
     function (session) {
+        filters = {};
+
         SpaceX.getAllLaunches(filters, function (err, info) {
             console.log(info);
         });
