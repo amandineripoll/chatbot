@@ -88,15 +88,7 @@ bot.dialog('option2', [
         filters = {};
 
         SpaceX.getAllUpcomingLaunches(filters, function (err, info) {
-            const Info = info[0]
-
-            const nextLaunchInfo = {
-                'Flight number': Info.flight_number,
-                'Mission name': Info.mission_name,
-                'Launch year': Info.launch_year
-            }
-
-            session.send(nextLaunch.cardBuilder(session, nextLaunchInfo));
+            session.send(nextLaunch.cardBuilder(session, info[0]));
             session.endDialog();
         });
     }
