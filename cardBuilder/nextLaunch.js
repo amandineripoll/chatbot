@@ -24,7 +24,7 @@ module.exports = {
                     },
                     {
                         "type": "TextBlock",
-                        "text": `Date de lancement : ${data.launch_date_local}`,
+                        "text": "Launch date: {{DATE(" + data.launch_date_local + ",SHORT)}}",
                         "wrap": true,
                     },
                     {
