@@ -160,9 +160,14 @@ bot.dialog('option6', [
             flight_number: results.response
         }
 
-        SpaceX.getAllLaunches(filters, (err, info) => {
-            session.send(selectNumber.selectedCardBuilder(session, info[0]));
-            session.endDialog();
-        });
+        if (results.response > 0 && results.response < 69) {
+            SpaceX.getAllLaunches(filters, (err, info) => {
+                session.send(selectNumber.selectedCardBuilder(session, info[0]));
+            });
+        } else {
+            session.send('Bad input choice');
+        }
+
+        session.endDialog();
     }
 ]);
