@@ -41,7 +41,7 @@ module.exports = {
                                                 {
                                                     "type": "TextBlock",
                                                     "spacing": "none",
-                                                    "text": "Launch date {{DATE(" + element.launch_date_utc + ", SHORT)}}",
+                                                    "text": "Launch date: {{DATE(" + element.launch_date_local + ",SHORT)}}",
                                                     "isSubtle": true,
                                                     "wrap": true
                                                 }

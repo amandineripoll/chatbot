@@ -10,6 +10,7 @@ const nextLaunch = require('./cardBuilder/nextLaunch');
 const nextAllLaunches = require('./cardBuilder/nextAllLaunches');
 const previousLaunch = require('./cardBuilder/previousLaunch');
 const successfulLaunches = require('./cardBuilder/successfulLaunches');
+const selectNumber = require('./cardBuilder/selectNumber');
 
 let SpaceX = new SpaceXAPI();
 
@@ -42,11 +43,16 @@ const menuItems = {
     },
     'Successful Launches': {
         item: 'option5'
+    },
+    'Select a flight number': {
+        item: 'option6'
     }
 };
 
 bot.dialog('menu', [
     (session) => {
+        session.sendTyping();
+
         builder.Prompts.choice(
             session,
             'Choose option from the list below',
@@ -57,6 +63,7 @@ bot.dialog('menu', [
     },
     (session, results) => {
         const choice = results.response.entity;
+        session.sendTyping();
 
         session.beginDialog(menuItems[choice].item);
     }
@@ -133,6 +140,28 @@ bot.dialog('option5', [
 
         SpaceX.getAllLaunches(filters, function (err, info) {
             session.send(successfulLaunches.cardBuilder(session, info));
+            session.endDialog();
+        });
+    }
+]);
+
+// Select number
+bot.dialog('option6', [
+    (session) => {
+        filters = {}
+
+        SpaceX.getAllLaunches(filters, (err, info) => {
+            session.send(selectNumber.allMissionCardBuilder(session, info));
+            builder.Prompts.text(session, 'Which mission number do you want to know about ?');
+        });
+    },
+    (session, results) => {
+        filters = {
+            flight_number: results.response
+        }
+
+        SpaceX.getAllLaunches(filters, (err, info) => {
+            session.send(selectNumber.selectedCardBuilder(session, info[0]));
             session.endDialog();
         });
     }
