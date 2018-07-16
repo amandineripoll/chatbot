@@ -104,10 +104,11 @@ bot.dialog('option2', [
 // Previous launch
 bot.dialog('option3', [
     function (session) {
-        filters = {};
 
-        SpaceX.getLatestLaunch(filters, function (err, info) {
-            console.log(info);
+        SpaceX.getLatestLaunch(function (err, info) {
+            session.send(previousLaunch.cardBuilder(session, info));
+            session.endDialog();
+
         });
     }
 ]);
