@@ -98,6 +98,22 @@ bot.dialog('option2', [
             session.send(nextLaunch.cardBuilder(session, info[0]));
             session.endDialog();
         });
+    },
+
+    (session, results) => {
+        filters = {
+            flight_number: results.response
+        }
+
+        if (results.response >= 65 && results.response <= 68) {
+            SpaceX.getAllLaunches(filters, (err, info) => {
+                session.send(selectNumber.selectedCardBuilder(session, info));
+            });
+        } else {
+            session.send('Bad input choice');
+        }
+
+        session.endDialog();
     }
 ]);
 
@@ -118,7 +134,8 @@ bot.dialog('option4', [
         filters = {};
 
         SpaceX.getAllUpcomingLaunches(filters, function (err, info) {
-            console.log(info);
+            session.send(nextAllLaunches.cardBuilder(session, info));
+            session.endDialog();
         });
     }
 ]);
