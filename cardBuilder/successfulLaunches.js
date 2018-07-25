@@ -108,6 +108,9 @@ module.exports = {
                                 ]
                             }]
                         }
+                    }, {
+                        "type": "Action.Submit",
+                        "title": "OK"
                     }]
                 }
             })

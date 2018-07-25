@@ -1,6 +1,4 @@
-// require pour utiliser notre fichier .env contenant nos variables d'environnement
 require('dotenv').config();
-// déclare différents objets
 const builder = require('botbuilder');
 const restify = require('restify');
 const server = restify.createServer();
@@ -23,11 +21,9 @@ const connector = new builder.ChatConnector({
 
 server.post('/api/messages', connector.listen());
 
-// Je n'ai pas compris à quoi sert MemoryBotStorage, et pourquoi on la set
 const inMemoryStorage = new builder.MemoryBotStorage();
 const bot = new builder.UniversalBot(connector, (session) => session.beginDialog('menu')).set('storage', inMemoryStorage);
 
-// objet json contenant nos différentes options
 const menuItems = {
     'About Company': {
         item: 'option1'
@@ -49,13 +45,24 @@ const menuItems = {
     }
 };
 
+// Send welcome when conversation with bot is started, by initiating the root dialog
+bot.on('conversationUpdate', function (message) {
+    if (message.membersAdded) {
+        message.membersAdded.forEach(function (identity) {
+            if (identity.id === message.address.bot.id) {
+                bot.beginDialog(message.address, '/');
+            }
+        });
+    }
+});
+
 bot.dialog('menu', [
     (session) => {
         session.sendTyping();
 
         builder.Prompts.choice(
             session,
-            'Choose option from the list below',
+            `Hi, i'm the SpaceX API. Choose option from the list below :`,
             menuItems, {
                 listStyle: 3
             }
@@ -161,6 +168,8 @@ bot.dialog('option6', [
         filters = {}
 
         SpaceX.getAllLaunches(filters, (err, info) => {
+            bot.storage = info.length
+
             session.send(selectNumber.allMissionCardBuilder(session, info));
             builder.Prompts.text(session, 'Which mission number do you want to know about ?');
         });
@@ -170,12 +179,12 @@ bot.dialog('option6', [
             flight_number: results.response
         }
 
-        if (results.response > 0 && results.response < 69) {
+        if (results.response > 0 && results.response <= bot.storage) {
             SpaceX.getAllLaunches(filters, (err, info) => {
                 session.send(selectNumber.selectedCardBuilder(session, info[0]));
             });
         } else {
-            session.send('Bad input choice');
+            session.send(selectNumber.failCardBuilder(session));
         }
 
         session.endDialog();

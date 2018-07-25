@@ -128,6 +128,9 @@ module.exports = {
                             ]
                         }]
                     }
+                }, {
+                    "type": "Action.Submit",
+                    "title": "OK"
                 }]
             }
         }
@@ -136,5 +139,30 @@ module.exports = {
             .addAttachment(selectedCard);
 
         return adaptiveCard
-    }
+    },
+
+    failCardBuilder: (session) => {
+        var bodyObject = [];
+
+        bodyObject.push({
+            "type": "TextBlock",
+            "text": `Bad input choice`,
+            "wrap": true
+        })
+
+        const adaptiveCard = new builder.Message(session)
+            .addAttachment({
+                contentType: "application/vnd.microsoft.card.adaptive",
+                content: {
+                    type: "AdaptiveCard",
+                    body: bodyObject,
+                    "actions": [{
+                        "type": "Action.Submit",
+                        "title": "Try again"
+                    }]
+                }
+            });
+
+        return adaptiveCard
+    },
 }

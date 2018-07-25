@@ -94,12 +94,6 @@ module.exports = {
                                                 }
                                             ]
                                         }
-                                    ],
-                                   "actions": [
-                                        {
-                                           "type":"Action.Submit",
-                                           "title":"OK"
-                                        }
                                     ]
                                 }
                             },
@@ -112,6 +106,10 @@ module.exports = {
                                "type":"Action.OpenUrl",
                                "title":"Telemetry",
                                "url":`${data.telemetry.flight_club}`
+                            },
+                            {
+                            "type":"Action.Submit",
+                            "title":"OK"
                             }
                         ]
                     }

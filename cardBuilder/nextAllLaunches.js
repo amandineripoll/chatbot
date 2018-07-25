@@ -9,8 +9,7 @@ module.exports = {
                 contentType: "application/vnd.microsoft.card.adaptive",
                 content: {
                     "type": "AdaptiveCard",
-                    "body": [
-                        {
+                    "body": [{
                             "type": "Container",
                             "items": [{
                                     "type": "TextBlock",
@@ -55,47 +54,48 @@ module.exports = {
                         },
                         {
                             "type": "Container",
-                            "items": [
-                                {
-                                    "type": "FactSet",
-                                    "facts": [
-                                        {
-                                            "title": "Rocket name:",
-                                            "value": `${element.rocket.rocket_name}`
-                                        },
-                                        {
-                                            "title": "Rocket type:",
-                                            "value": `${element.rocket.rocket_type}`
-                                        },
-                                        {
-                                            "title": "Payload ID:",
-                                            "value": `${element.rocket.second_stage.payloads[0].payload_id}`
-                                        },
-                                        {
-                                            "title": "Payload type:",
-                                            "value": `${element.rocket.second_stage.payloads[0].payload_type}`
-                                        },
-                                        {
-                                            "title": "Orbit:",
-                                            "value": `${element.rocket.second_stage.payloads[0].orbit}`
-                                        },
-                                        {
-                                            "title": "Reference system:",
-                                            "value": `${element.rocket.second_stage.payloads[0].orbit_params.reference_system}`
-                                        },
-                                        {
-                                            "title": "Regime:",
-                                            "value": `${element.rocket.second_stage.payloads[0].orbit_params.regime}`
-                                        },
-                                        {
-                                            "title": "Lifespan years:",
-                                            "value": `${element.rocket.second_stage.payloads[0].orbit_params.lifespan_years}`
-                                        }
-                                    ]
-                                }
-                            ]
+                            "items": [{
+                                "type": "FactSet",
+                                "facts": [{
+                                        "title": "Rocket name:",
+                                        "value": `${element.rocket.rocket_name}`
+                                    },
+                                    {
+                                        "title": "Rocket type:",
+                                        "value": `${element.rocket.rocket_type}`
+                                    },
+                                    {
+                                        "title": "Payload ID:",
+                                        "value": `${element.rocket.second_stage.payloads[0].payload_id}`
+                                    },
+                                    {
+                                        "title": "Payload type:",
+                                        "value": `${element.rocket.second_stage.payloads[0].payload_type}`
+                                    },
+                                    {
+                                        "title": "Orbit:",
+                                        "value": `${element.rocket.second_stage.payloads[0].orbit}`
+                                    },
+                                    {
+                                        "title": "Reference system:",
+                                        "value": `${element.rocket.second_stage.payloads[0].orbit_params.reference_system}`
+                                    },
+                                    {
+                                        "title": "Regime:",
+                                        "value": `${element.rocket.second_stage.payloads[0].orbit_params.regime}`
+                                    },
+                                    {
+                                        "title": "Lifespan years:",
+                                        "value": `${element.rocket.second_stage.payloads[0].orbit_params.lifespan_years}`
+                                    }
+                                ]
+                            }]
                         }
                     ],
+                    "actions": [{
+                        "type": "Action.Submit",
+                        "title": "OK"
+                    }],
                 }
             })
         });
@@ -106,4 +106,4 @@ module.exports = {
 
         return adaptiveCard
     }
-}   
+}
